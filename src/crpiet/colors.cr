@@ -50,6 +50,10 @@ module Crpiet
     end
 
     getter :hue, :light
+
+    def ==(other : self)
+      @hue == other.hue && @light == other.light
+    end
   end
 
   class Codel
@@ -92,7 +96,7 @@ module Crpiet
         max[:left] = x if max[:left] > x
         max[:up] = y if max[:up] > x
       end
-      
+
       @codels.each do |codel|
         x, y = codel.position
         @edges[:right][:left]  = codel if !@edges[:right].has_key?(:left)
