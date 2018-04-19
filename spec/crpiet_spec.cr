@@ -14,7 +14,7 @@ describe Crpiet do
   context "using three_plus_five.png" do
     file = SpecHelper::Files["three_plus_five.png"]
 
-    it "prints 6" do
+    it "has the correct color_map" do
       Crpiet::Parser.new(file)
     end
   end

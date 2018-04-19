@@ -50,10 +50,6 @@ module Crpiet
     end
 
     getter :hue, :light
-
-    def ==(other : self)
-      @hue == other.hue && @light == other.light
-    end
   end
 
   class Codel
