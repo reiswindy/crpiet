@@ -1,19 +1,19 @@
 module Crpiet
-  enum Hue
-    Red 
-    Yellow
-    Green
-    Cyan
-    Blue
-    Magenta
-    Black
-    White
+  module Hue
+    Red = 0 
+    Yellow = 1
+    Green = 2
+    Cyan = 3
+    Blue = 4
+    Magenta = 5
+    Black = -1
+    White = -2
   end
 
-  enum Light
-    Light
-    Normal
-    Dark
+  module Light
+    Light = 0
+    Normal = 1
+    Dark = 2
   end
 
   COLORS = {
@@ -66,10 +66,10 @@ module Crpiet
     @color : Color
     @codels = [] of Codel
     @edges = {
-      :right => {} of Symbol => Codel,
-      :down => {} of Symbol => Codel,
-      :left => {} of Symbol => Codel,
-      :up => {} of Symbol => Codel,
+      :r => {} of Symbol => Codel,
+      :d => {} of Symbol => Codel,
+      :l => {} of Symbol => Codel,
+      :u => {} of Symbol => Codel,
     }
 
     def initialize(@color)
@@ -82,36 +82,51 @@ module Crpiet
 
       @codels.each do |codel|
         x, y = codel.position
-        max[:right] = x if !max.has_key?(:right)
-        max[:down] = y if !max.has_key?(:down)
-        max[:left] = x if !max.has_key?(:left)
-        max[:up] = y if !max.has_key?(:up)
+        max[:r] = x if !max.has_key?(:r)
+        max[:d] = y if !max.has_key?(:d)
+        max[:l] = x if !max.has_key?(:l)
+        max[:u] = y if !max.has_key?(:u)
 
-        max[:right] = x if max[:right] < x
-        max[:down] = y if max[:down] < y
-        max[:left] = x if max[:left] > x
-        max[:up] = y if max[:up] > x
+        max[:r] = x if max[:r] < x
+        max[:d] = y if max[:d] < y
+        max[:l] = x if max[:l] > x
+        max[:u] = y if max[:u] > x
       end
 
       @codels.each do |codel|
         x, y = codel.position
-        @edges[:right][:left]  = codel if !@edges[:right].has_key?(:left)
-        @edges[:right][:right] = codel if !@edges[:right].has_key?(:right)
-        @edges[:down][:left]   = codel if !@edges[:down].has_key?(:left)
-        @edges[:down][:right]  = codel if !@edges[:down].has_key?(:right)
-        @edges[:left][:left]   = codel if !@edges[:left].has_key?(:left)
-        @edges[:left][:right]  = codel if !@edges[:left].has_key?(:right)
-        @edges[:up][:left]     = codel if !@edges[:up].has_key?(:left)
-        @edges[:up][:right]    = codel if !@edges[:up].has_key?(:right)
 
-        @edges[:right][:left]  = codel if @edges[:right][:left].position[1] < y
-        @edges[:right][:right] = codel if @edges[:right][:right].position[1] > y
-        @edges[:down][:left]   = codel if @edges[:down][:left].position[0] < x
-        @edges[:down][:right]  = codel if @edges[:down][:right].position[0] > x
-        @edges[:left][:left]   = codel if @edges[:left][:left].position[1] > y
-        @edges[:left][:right]  = codel if @edges[:left][:right].position[1] < y
-        @edges[:up][:left]     = codel if @edges[:up][:left].position[0] > x
-        @edges[:up][:right]    = codel if @edges[:up][:right].position[0] < x
+        if x == max[:r]
+          @edges[:r][:l]  = codel if !@edges[:r].has_key?(:l)
+          @edges[:r][:r] = codel if !@edges[:r].has_key?(:r)
+
+          @edges[:r][:l]  = codel if @edges[:r][:l].position[1] > y
+          @edges[:r][:r] = codel if @edges[:r][:r].position[1] < y
+        end
+
+        if y == max[:d]
+          @edges[:d][:l]   = codel if !@edges[:d].has_key?(:l)
+          @edges[:d][:r]  = codel if !@edges[:d].has_key?(:r)
+
+          @edges[:d][:l]   = codel if @edges[:d][:l].position[0] < x
+          @edges[:d][:r]  = codel if @edges[:d][:r].position[0] > x
+        end
+
+        if x == max[:l]
+          @edges[:l][:l]   = codel if !@edges[:l].has_key?(:l)
+          @edges[:l][:r]  = codel if !@edges[:l].has_key?(:r)
+
+          @edges[:l][:l]   = codel if @edges[:l][:l].position[1] < y
+          @edges[:l][:r]  = codel if @edges[:l][:r].position[1] > y
+        end
+
+        if y == max[:u]
+          @edges[:u][:l]     = codel if !@edges[:u].has_key?(:l)
+          @edges[:u][:r]    = codel if !@edges[:u].has_key?(:r)
+
+          @edges[:u][:l]     = codel if @edges[:u][:l].position[0] > x
+          @edges[:u][:r]    = codel if @edges[:u][:r].position[0] < x
+        end
       end
     end
   end

@@ -14,8 +14,28 @@ describe Crpiet do
   context "using three_plus_five.png" do
     file = SpecHelper::Files["three_plus_five.png"]
 
-    it "has the correct color_map" do
-      Crpiet::Parser.new(file)
+    it "has the correct colors on the codel map" do
+      parser = Crpiet::Parser.new(file)
+      parser.parse
+      parser.codel_map[{0, 0}].color_group.color.should eq(Crpiet::COLORS["FF0000"]) 
+      parser.codel_map[{4, 1}].color_group.color.should eq(Crpiet::COLORS["000000"])
+      parser.codel_map[{5, 2}].color_group.color.should eq(Crpiet::COLORS["FFFFFF"])
+      parser.codel_map[{5, 0}].color_group.color.should eq(Crpiet::COLORS["FFFFC0"])
+    end
+
+    it "has the correct edge in the codel group" do
+      parser = Crpiet::Parser.new(file)
+      parser.parse
+      color_group_edges = parser.codel_map[{0, 0}].color_group.edges
+
+      color_group_edges[:r][:l].position.should eq({0, 0})
+      color_group_edges[:r][:r].position.should eq({0, 2})
+      color_group_edges[:d][:l].position.should eq({0, 2})
+      color_group_edges[:d][:r].position.should eq({0, 2})
+      color_group_edges[:l][:l].position.should eq({0, 2})
+      color_group_edges[:l][:r].position.should eq({0, 0})
+      color_group_edges[:u][:l].position.should eq({0, 0})
+      color_group_edges[:u][:r].position.should eq({0, 0})
     end
   end
 
