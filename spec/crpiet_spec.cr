@@ -7,10 +7,6 @@ describe Crpiet do
     false.should eq(true)
   end
 
-  context "" do
-    
-  end
-
   context "using three_plus_five.png" do
     file = SpecHelper::Files["three_plus_five.png"]
 
@@ -37,13 +33,19 @@ describe Crpiet do
       color_group_edges[:u][:l].position.should eq({0, 0})
       color_group_edges[:u][:r].position.should eq({0, 0})
     end
+
+    it "prints 8" do
+      parser = Crpiet::Parser.new(file)
+      parser.parse      
+    end
   end
 
   context "using hello_world.png" do
     file = SpecHelper::Files["hello_world.png"]
 
     it "prints Hello World!" do
-      Crpiet::Parser.new(file)
+      parser = Crpiet::Parser.new(file)
+      parser.parse
     end
   end
 end
