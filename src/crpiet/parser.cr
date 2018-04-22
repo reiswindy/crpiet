@@ -83,7 +83,3 @@ class Crpiet::Parser
     "#{r.to_s(16, true).rjust(2, '0')}#{g.to_s(16, true).rjust(2, '0')}#{b.to_s(16, true).rjust(2, '0')}"
   end
 end
-
-
-#Define color groups
-#Start execution

@@ -6,6 +6,57 @@ module Crpiet
     end
   
     abstract def exec(context : Program)
+
+    def self.from_color_transition(from : ColorGroup, to : ColorGroup) : Command
+      raise "Color white doesn't generate any commands" if from.color == COLORS["FFFFFF"] || to.color == COLORS["FFFFFF"]
+      raise "Color black doesn't generate any commands" if from.color == COLORS["000000"] || to.color == COLORS["000000"]
+  
+      amount = from.codels.size
+      
+      hue_diff = (to.color.hue - from.color.hue) % HUE_LEVELS
+      light_diff = (to.color.light - from.color.light) % LIGHT_LEVELS
+      
+      diff = {hue_diff, light_diff}
+
+      case diff
+      when {0, 1}
+        PushCommand.new(amount)
+      when {0, 2}
+        PopCommand.new(amount)
+      when {1, 0}
+        AddCommand.new(amount)
+      when {1, 1}
+        SubtractCommand.new(amount)
+      when {1, 2}
+        MultiplyCommand.new(amount)
+      when {2, 0}
+        DivideCommand.new(amount)
+      when {2, 1}
+        ModCommand.new(amount)
+      when {2, 2}
+        NotCommand.new(amount)
+      when {3, 0}
+        GreaterCommand.new(amount)
+      when {3, 1}
+        PointerCommand.new(amount)
+      when {3, 2}
+        SwitchCommand.new(amount)
+      when {4, 0}
+        DuplicateCommand.new(amount)
+      when {4, 1}
+        RollCommand.new(amount)
+      when {4, 2}
+        InNumberCommand.new(amount)
+      when {5, 0}
+        InCharCommand.new(amount)
+      when {5, 1}
+        OutNumberCommand.new(amount)
+      when {5, 2}
+        OutCharCommand.new(amount)
+      else
+        raise "Invalid color transition"
+      end
+    end
   end
   
   class PushCommand < Command
@@ -55,7 +106,7 @@ module Crpiet
   class DivideCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
-      return nil if last(1).first == 0
+      return nil if context.stack.last == 0
       a = context.stack.pop
       b = context.stack.pop
       context.stack.push(b / a)
@@ -66,7 +117,7 @@ module Crpiet
   class ModCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
-      return nil if last(1).first == 0
+      return nil if context.stack.last == 0
       a = context.stack.pop
       b = context.stack.pop
       context.stack.push(b % a)
@@ -138,7 +189,7 @@ module Crpiet
   
   class InNumberCommand < Command
     def exec(context : Program)
-      if a = context.in.gets.to_i?
+      if a = context.in.gets_to_end.to_i?
         context.stack.push(a)
       end
       nil
@@ -148,7 +199,7 @@ module Crpiet
   class InCharCommand < Command
     def exec(context : Program)
       if a = context.in.gets(1)
-        context.stack.push(a.byte_at(0))
+        context.stack.push(a.byte_at(0).to_i32)
       end
       nil
     end
@@ -167,8 +218,8 @@ module Crpiet
     def exec(context : Program)
       return nil if context.stack.empty?
       a = context.stack.pop
-      context.out.write_byte(a)
+      context.out << a.unsafe_chr
       nil
     end
-  end  
+  end
 end

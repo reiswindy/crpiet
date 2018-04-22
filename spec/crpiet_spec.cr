@@ -35,8 +35,10 @@ describe Crpiet do
     end
 
     it "prints 8" do
-      parser = Crpiet::Parser.new(file)
-      parser.parse      
+      result = String::Builder.build do |io|
+        Crpiet.run(file, io)
+      end
+      result.should eq("8")
     end
   end
 
@@ -44,8 +46,10 @@ describe Crpiet do
     file = SpecHelper::Files["hello_world.png"]
 
     it "prints Hello World!" do
-      parser = Crpiet::Parser.new(file)
-      parser.parse
+      result = String::Builder.build do |io|
+        Crpiet.run(file, io)
+      end
+      result.should eq("Hello World!")
     end
   end
 end

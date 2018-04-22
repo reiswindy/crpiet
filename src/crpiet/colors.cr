@@ -1,4 +1,7 @@
 module Crpiet
+  HUE_LEVELS = 6
+  LIGHT_LEVELS = 3
+
   module Hue
     Red = 0 
     Yellow = 1
