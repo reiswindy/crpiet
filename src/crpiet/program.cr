@@ -86,8 +86,8 @@ class Crpiet::Program
           if next_codel.nil? || next_codel.color_group.color == COLORS["000000"]
             retries = retries + 1
             next_codel = nil
-            @cc.switch
-            @dp.rotate_cw if @cc.direction == :l
+            @cc.switch if retries % 2 == 1
+            @dp.rotate_cw if retries % 2 == 0
 
             if retries == 8
               return nil

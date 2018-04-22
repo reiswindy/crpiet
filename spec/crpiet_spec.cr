@@ -45,11 +45,11 @@ describe Crpiet do
   context "using hello_world.png" do
     file = SpecHelper::Files["hello_world.png"]
 
-    it "prints Hello World!" do
+    it "prints Hello world!" do
       result = String::Builder.build do |io|
         Crpiet.run(file, io)
       end
-      result.should eq("Hello World!")
+      result.should eq("Hello world!")
     end
   end
 end

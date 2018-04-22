@@ -93,7 +93,7 @@ module Crpiet
         max[:r] = x if max[:r] < x
         max[:d] = y if max[:d] < y
         max[:l] = x if max[:l] > x
-        max[:u] = y if max[:u] > x
+        max[:u] = y if max[:u] > y
       end
 
       @codels.each do |codel|
