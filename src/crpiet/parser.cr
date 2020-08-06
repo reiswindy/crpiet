@@ -39,7 +39,7 @@ class Crpiet::Parser
 
     processed_pixels = [] of Tuple(Int32, Int32)
     adjacent_pixels = [initial_position]
-    
+
     while position = adjacent_pixels.shift?
       next if processed_pixels.includes?(position)
 
@@ -80,6 +80,6 @@ class Crpiet::Parser
 
   private def rgb_to_hex(rgb : Tuple(UInt8, UInt8, UInt8))
     r, g, b = rgb
-    "#{r.to_s(16, true).rjust(2, '0')}#{g.to_s(16, true).rjust(2, '0')}#{b.to_s(16, true).rjust(2, '0')}"
+    "#{r.to_s(16, upcase: true).rjust(2, '0')}#{g.to_s(16, upcase: true).rjust(2, '0')}#{b.to_s(16, upcase: true).rjust(2, '0')}"
   end
 end

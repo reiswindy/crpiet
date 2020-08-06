@@ -1,21 +1,21 @@
 module Crpiet
   abstract class Command
     @number_of_codels : Int32
-  
+
     def initialize(@number_of_codels)
     end
-  
+
     abstract def exec(context : Program)
 
     def self.from_color_transition(from : ColorGroup, to : ColorGroup) : Command
       raise "Color white doesn't generate any commands" if from.color == COLORS["FFFFFF"] || to.color == COLORS["FFFFFF"]
       raise "Color black doesn't generate any commands" if from.color == COLORS["000000"] || to.color == COLORS["000000"]
-  
+
       amount = from.codels.size
-      
+
       hue_diff = (to.color.hue - from.color.hue) % HUE_LEVELS
       light_diff = (to.color.light - from.color.light) % LIGHT_LEVELS
-      
+
       diff = {hue_diff, light_diff}
 
       case diff
@@ -58,21 +58,21 @@ module Crpiet
       end
     end
   end
-  
+
   class PushCommand < Command
     def exec(context : Program)
       context.stack.push(@number_of_codels)
       nil
     end
   end
-  
+
   class PopCommand < Command
     def exec(context : Program)
       context.stack.pop?
       nil
     end
   end
-  
+
   class AddCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
@@ -82,7 +82,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class SubtractCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
@@ -92,7 +92,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class MultiplyCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
@@ -102,18 +102,18 @@ module Crpiet
       nil
     end
   end
-  
+
   class DivideCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
       return nil if context.stack.last == 0
       a = context.stack.pop
       b = context.stack.pop
-      context.stack.push(b / a)
+      context.stack.push(b // a)
       nil
     end
   end
-  
+
   class ModCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
@@ -124,7 +124,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class NotCommand < Command
     def exec(context : Program)
       return nil if context.stack.empty?
@@ -134,7 +134,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class GreaterCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
@@ -145,7 +145,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class PointerCommand < Command
     def exec(context : Program)
       return nil if context.stack.empty?
@@ -155,7 +155,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class SwitchCommand < Command
     def exec(context : Program)
       return nil if context.stack.empty?
@@ -164,7 +164,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class DuplicateCommand < Command
     def exec(context : Program)
       return nil if context.stack.empty?
@@ -172,7 +172,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class RollCommand < Command
     def exec(context : Program)
       return nil if context.stack.size < 2
@@ -186,7 +186,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class InNumberCommand < Command
     def exec(context : Program)
       if a = context.in.gets_to_end.to_i?
@@ -195,7 +195,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class InCharCommand < Command
     def exec(context : Program)
       if a = context.in.gets(1)
@@ -204,7 +204,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class OutNumberCommand < Command
     def exec(context : Program)
       return nil if context.stack.empty?
@@ -213,7 +213,7 @@ module Crpiet
       nil
     end
   end
-  
+
   class OutCharCommand < Command
     def exec(context : Program)
       return nil if context.stack.empty?

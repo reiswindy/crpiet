@@ -1,11 +1,6 @@
 require "./spec_helper"
 
 describe Crpiet do
-  # TODO: Write tests
-
-  it "works" do
-    false.should eq(true)
-  end
 
   context "using three_plus_five.png" do
     file = SpecHelper::Files["three_plus_five.png"]
@@ -13,7 +8,7 @@ describe Crpiet do
     it "has the correct colors on the codel map" do
       parser = Crpiet::Parser.new(file)
       parser.parse
-      parser.codel_map[{0, 0}].color_group.color.should eq(Crpiet::COLORS["FF0000"]) 
+      parser.codel_map[{0, 0}].color_group.color.should eq(Crpiet::COLORS["FF0000"])
       parser.codel_map[{4, 1}].color_group.color.should eq(Crpiet::COLORS["000000"])
       parser.codel_map[{5, 2}].color_group.color.should eq(Crpiet::COLORS["FFFFFF"])
       parser.codel_map[{5, 0}].color_group.color.should eq(Crpiet::COLORS["FFFFC0"])

@@ -13,6 +13,6 @@ dependencies:
     github: stumpycr/stumpy_png
     version: "~> 4.3"
 
-crystal: 0.24.2
+crystal: 0.35.1
 
 license: MIT

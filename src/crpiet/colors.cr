@@ -3,7 +3,7 @@ module Crpiet
   LIGHT_LEVELS = 3
 
   module Hue
-    Red = 0 
+    Red = 0
     Yellow = 1
     Green = 2
     Cyan = 3

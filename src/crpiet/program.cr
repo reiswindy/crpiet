@@ -128,7 +128,7 @@ class Crpiet::Program
 
     while codel = @parser.codel_map[position]?
       break if codel.color_group != color_group
-      
+
       traversed_codels << codel
       x, y = codel.position
       case direction = @dp.direction
