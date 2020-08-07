@@ -107,16 +107,11 @@ class Crpiet::Program
   private def traverse(initial_pos : Tuple(Int32, Int32))
     x, y = initial_pos
     case direction = @dp.direction
-    when :r
-      {x + 1, y}
-    when :d
-      {x, y + 1}
-    when :l
-      {x - 1, y}
-    when :u
-      {x, y - 1}
-    else
-      raise "Invalid direction"
+    when :r then {x + 1, y}
+    when :d then {x, y + 1}
+    when :l then {x - 1, y}
+    when :u then {x, y - 1}
+    else raise "Invalid direction"
     end
   end
 
@@ -132,16 +127,11 @@ class Crpiet::Program
       traversed_codels << codel
       x, y = codel.position
       case direction = @dp.direction
-      when :r
-        position = {x + 1, y}
-      when :l
-        position = {x - 1, y}
-      when :d
-        position = {x, y + 1}
-      when :u
-        position = {x, y - 1}
-      else
-        raise "Invalid direction"
+      when :r then position = {x + 1, y}
+      when :l then position = {x - 1, y}
+      when :d then position = {x, y + 1}
+      when :u then position = {x, y - 1}
+      else raise "Invalid direction"
       end
     end
     traversed_codels

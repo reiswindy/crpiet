@@ -36,7 +36,7 @@ module Crpiet
       when {5, 0} then InCharCommand.new(amount)
       when {5, 1} then OutNumberCommand.new(amount)
       when {5, 2} then OutCharCommand.new(amount)
-      else        raise "Invalid color transition"
+      else raise "Invalid color transition"
       end
     end
   end
