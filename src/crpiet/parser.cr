@@ -2,6 +2,8 @@ require "stumpy_png"
 require "./colors"
 
 class Crpiet::Parser
+  DEFAULT_COLOR_HEX = "FFFFFF"
+
   @image_canvas : StumpyCore::Canvas
   @codel_map : Hash(Tuple(Int32, Int32), Codel)
 
@@ -33,7 +35,7 @@ class Crpiet::Parser
     x, y = initial_position
     pixel = @image_canvas[x, y]
     hex = rgb_to_hex(pixel.to_rgb8)
-    hex = "FFFFFF" if !COLORS.has_key?(hex)
+    hex = DEFAULT_COLOR_HEX if !COLORS.has_key?(hex)
 
     color_group = ColorGroup.new(COLORS[hex])
 
@@ -46,30 +48,30 @@ class Crpiet::Parser
       x, y = position
       pixel = @image_canvas[x, y]
       hex = rgb_to_hex(pixel.to_rgb8)
-      hex = "FFFFFF" if !COLORS.has_key?(hex)
+      hex = DEFAULT_COLOR_HEX if !COLORS.has_key?(hex)
       color_group.codels << Codel.new(color_group, position)
 
       if up_pixel = @image_canvas.safe_get(x, y - 1)
         up_hex = rgb_to_hex(up_pixel.to_rgb8)
-        up_hex = "FFFFFF" if !COLORS.has_key?(up_hex)
+        up_hex = DEFAULT_COLOR_HEX if !COLORS.has_key?(up_hex)
         adjacent_pixels << {x, y - 1} if hex == up_hex
       end
 
       if right_pixel = @image_canvas.safe_get(x + 1, y)
         right_hex = rgb_to_hex(right_pixel.to_rgb8)
-        right_hex = "FFFFFF" if !COLORS.has_key?(right_hex)
+        right_hex = DEFAULT_COLOR_HEX if !COLORS.has_key?(right_hex)
         adjacent_pixels << {x + 1, y} if hex == right_hex
       end
 
       if down_pixel = @image_canvas.safe_get(x, y + 1)
         down_hex = rgb_to_hex(down_pixel.to_rgb8)
-        down_hex = "FFFFFF" if !COLORS.has_key?(down_hex)
+        down_hex = DEFAULT_COLOR_HEX if !COLORS.has_key?(down_hex)
         adjacent_pixels << {x, y + 1} if hex == down_hex
       end
 
       if left_pixel = @image_canvas.safe_get(x - 1, y)
         left_hex = rgb_to_hex(left_pixel.to_rgb8)
-        left_hex = "FFFFFF" if !COLORS.has_key?(left_hex)
+        left_hex = DEFAULT_COLOR_HEX if !COLORS.has_key?(left_hex)
         adjacent_pixels << {x - 1, y} if hex == left_hex
       end
       processed_pixels << position
