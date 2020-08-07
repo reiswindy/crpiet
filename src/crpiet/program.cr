@@ -121,7 +121,7 @@ class Crpiet::Program
   end
 
   private def slide(position : Tuple(Int32, Int32))
-    raise "Can only slide on white color groups" if @parser.codel_map[position] != COLORS["FFFFFF"]
+    raise "Can only slide on white color groups" if @parser.codel_map[position].color_group.color != COLORS["FFFFFF"]
 
     color_group = @parser.codel_map[position].color_group
     traversed_codels = [] of Codel
