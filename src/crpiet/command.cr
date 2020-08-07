@@ -19,42 +19,24 @@ module Crpiet
       diff = {hue_diff, light_diff}
 
       case diff
-      when {0, 1}
-        PushCommand.new(amount)
-      when {0, 2}
-        PopCommand.new(amount)
-      when {1, 0}
-        AddCommand.new(amount)
-      when {1, 1}
-        SubtractCommand.new(amount)
-      when {1, 2}
-        MultiplyCommand.new(amount)
-      when {2, 0}
-        DivideCommand.new(amount)
-      when {2, 1}
-        ModCommand.new(amount)
-      when {2, 2}
-        NotCommand.new(amount)
-      when {3, 0}
-        GreaterCommand.new(amount)
-      when {3, 1}
-        PointerCommand.new(amount)
-      when {3, 2}
-        SwitchCommand.new(amount)
-      when {4, 0}
-        DuplicateCommand.new(amount)
-      when {4, 1}
-        RollCommand.new(amount)
-      when {4, 2}
-        InNumberCommand.new(amount)
-      when {5, 0}
-        InCharCommand.new(amount)
-      when {5, 1}
-        OutNumberCommand.new(amount)
-      when {5, 2}
-        OutCharCommand.new(amount)
-      else
-        raise "Invalid color transition"
+      when {0, 1} then PushCommand.new(amount)
+      when {0, 2} then PopCommand.new(amount)
+      when {1, 0} then AddCommand.new(amount)
+      when {1, 1} then SubtractCommand.new(amount)
+      when {1, 2} then MultiplyCommand.new(amount)
+      when {2, 0} then DivideCommand.new(amount)
+      when {2, 1} then ModCommand.new(amount)
+      when {2, 2} then NotCommand.new(amount)
+      when {3, 0} then GreaterCommand.new(amount)
+      when {3, 1} then PointerCommand.new(amount)
+      when {3, 2} then SwitchCommand.new(amount)
+      when {4, 0} then DuplicateCommand.new(amount)
+      when {4, 1} then RollCommand.new(amount)
+      when {4, 2} then InNumberCommand.new(amount)
+      when {5, 0} then InCharCommand.new(amount)
+      when {5, 1} then OutNumberCommand.new(amount)
+      when {5, 2} then OutCharCommand.new(amount)
+      else        raise "Invalid color transition"
       end
     end
   end

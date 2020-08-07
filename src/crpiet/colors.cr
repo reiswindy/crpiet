@@ -46,23 +46,19 @@ module Crpiet
   }
 
   class Color
-    @hue : Int32
-    @light : Int32
+    getter hue : Int32
+    getter light : Int32
 
     def initialize(@hue, @light)
     end
-
-    getter :hue, :light
   end
 
   class Codel
-    @color_group : ColorGroup
-    @position : Tuple(Int32, Int32)
+    getter color_group : ColorGroup
+    getter position : Tuple(Int32, Int32)
 
     def initialize(@color_group, @position)
     end
-
-    getter :color_group, :position
   end
 
   class ColorGroup

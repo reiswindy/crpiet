@@ -4,15 +4,13 @@ require "./colors"
 class Crpiet::Parser
   DEFAULT_COLOR_HEX = "FFFFFF"
 
-  @image_canvas : StumpyCore::Canvas
-  @codel_map : Hash(Tuple(Int32, Int32), Codel)
+  getter image_canvas : StumpyCore::Canvas
+  getter codel_map : Hash(Tuple(Int32, Int32), Codel)
 
   def initialize(filename : String)
     @image_canvas = StumpyPNG.read(filename)
     @codel_map = {} of Tuple(Int32, Int32) => Codel
   end
-
-  getter :image_canvas, :codel_map
 
   def parse
     h = @image_canvas.height
