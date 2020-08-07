@@ -47,4 +47,15 @@ describe Crpiet do
       result.should eq("Hello world!")
     end
   end
+
+  context "using piet.png" do
+    file = SpecHelper::Files["piet.png"]
+
+    it "prints Piet" do
+      result = String::Builder.build do |io|
+        Crpiet.run(file, io)
+      end
+      result.should eq("Piet")
+    end
+  end
 end
