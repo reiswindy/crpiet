@@ -164,7 +164,7 @@ module Crpiet
       a = context.stack.pop # Number of rolls
       b = context.stack.pop # Depth
       c = context.stack.pop(b)
-      context.stack.concat(c.rotate(a))
+      context.stack.concat(c.rotate(-a))
       nil
     end
   end
