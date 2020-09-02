@@ -171,7 +171,7 @@ module Crpiet
 
   class InNumberCommand < Command
     def exec(context : Program)
-      if a = context.in.gets_to_end.to_i?
+      if a = context.in.read_line.to_i?
         context.stack.push(a)
       end
       nil
@@ -180,8 +180,8 @@ module Crpiet
 
   class InCharCommand < Command
     def exec(context : Program)
-      if a = context.in.gets(1)
-        context.stack.push(a.byte_at(0).to_i32)
+      if a = context.in.read_char
+        context.stack.push(a.ord)
       end
       nil
     end
@@ -200,7 +200,7 @@ module Crpiet
     def exec(context : Program)
       return nil if context.stack.empty?
       a = context.stack.pop
-      context.out << a.unsafe_chr
+      context.out << a.chr
       nil
     end
   end
