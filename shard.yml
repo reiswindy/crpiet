@@ -6,7 +6,7 @@ authors:
 
 targets:
   crpiet:
-    main: src/crpiet.cr
+    main: src/app.cr
 
 dependencies:
   stumpy_png:
